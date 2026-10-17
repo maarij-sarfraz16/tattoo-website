@@ -1,7 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Dagger, Eye, Mandala, Moons, Orbit, Serpent, Sprig, Sun, Waves } from "./art";
+import {
+  Dagger,
+  Eye,
+  Mandala,
+  Moons,
+  Orbit,
+  Serpent,
+  Sprig,
+  Sun,
+  Waves,
+} from "./art";
 
 const pieces = [
   { t: "Lunar Phase", c: "Fine line", Art: Moons },
@@ -30,28 +40,36 @@ export default function Gallery() {
         </div>
         <div className="filters" role="tablist">
           {cats.map((c) => (
-            <button key={c} className={`chip ${cat === c ? "on" : ""}`} onClick={() => setCat(c)}>
+            <button
+              key={c}
+              className={`chip ${cat === c ? "on" : ""}`}
+              onClick={() => setCat(c)}
+            >
               {c}
             </button>
           ))}
         </div>
       </div>
       <div className="grid">
-        {pieces.map(({ t, c, Art }, i) => (
-          <article
-            key={t}
-            className={`card reveal ${cat === "All" || cat === c ? "" : "off"}`}
-            style={{ "--d": `${(i % 4) * 90}ms` } as React.CSSProperties}
-          >
-            <Art />
-            <div className="cap">
-              <h4>{t}</h4>
-              <small>{c}</small>
-            </div>
-          </article>
-        ))}
+        {pieces
+          .filter(({ c }) => cat === "All" || cat === c)
+          .map(({ t, c, Art }, i) => (
+            <article
+              key={t}
+              className="card card-in"
+              style={{ "--d": `${(i % 4) * 70}ms` } as React.CSSProperties}
+            >
+              <Art />
+              <div className="cap">
+                <h4>{t}</h4>
+                <small>{c}</small>
+              </div>
+            </article>
+          ))}
       </div>
-      <p className="note reveal">Illustrative flash shown. Swap in studio photography to go live.</p>
+      <p className="note reveal">
+        Illustrative flash shown. Swap in studio photography to go live.
+      </p>
     </>
   );
 }
